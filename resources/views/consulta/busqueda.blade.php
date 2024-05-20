@@ -21,7 +21,7 @@
                 }
             @endphp
 
-            {{-- <div class="card-body">
+           <div class="card-body">
                 <form action="{{ route('consulta.store') }}" method="post">
                     @csrf
                     
@@ -35,7 +35,7 @@
 
                     <x-adminlte-button type="submit" label="Buscar" theme="secondary" icon="fas fa-search"></x-adminlte-button>
                 </form>
-            </div> --}}
+            </div> 
 
             <blockquote class="blockquote mb-0 ">
                 <p>Dudas o aclaraciones.</p>

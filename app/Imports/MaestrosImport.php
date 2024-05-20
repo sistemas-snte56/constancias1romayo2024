@@ -33,11 +33,11 @@ class MaestrosImport implements ToCollection, WithHeadingRow
             // Crear el maestro con los datos y el código_id generado
             Maestro::create([
                 'id_delegacion' => $row['id_delegacion'],
-                'nombre' => $row['nombre'],
-                'apaterno' => $row['apaterno'],
-                'amaterno' => $row['amaterno'],
+                'nombre' => mb_strtoupper($row['nombre'],'UTF-8'),
+                'apaterno' => mb_strtoupper($row['apaterno'],'UTF-8'),
+                'amaterno' => mb_strtoupper($row['amaterno'],'UTF-8'),
                 'npersonal' => $row['npersonal'],
-                'rfc' => $row['rfc'],
+                'rfc' => mb_strtoupper($row['rfc'],'UTF-8'),
                 'id_genero' => $row['id_genero'],
                 'telefono' => $row['telefono'],
                 'email' => $row['email'],

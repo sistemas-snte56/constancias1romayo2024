@@ -108,8 +108,6 @@
                         </tr>
                     @endforeach
                 </x-adminlte-datatable>
-                <br>
-                <h4>SE REALIZO UNA MODIFICACION DESDE EQUIPO DELL</h4>
             </p>
         </div>
     </div>
@@ -150,11 +148,6 @@
         });
     </script>
 
-delete_ok
-
-
-
-
     @if(session('delete_ok'))
         <script>
             $(document).ready(function(){
@@ -187,11 +180,9 @@ delete_ok
                 let mensaje = "{{ session ('status') }}"
                 Swal.fire({
                     icon: 'success',
-                    title: mensaje,
+                    title: "Muy bien !",
+                    text: mensaje,
                     // text: "no hay resultados",
-                    showConfirmButton: false,
-                    showDenyButton: true,
-                    confirmButtonText: `Cerrar`
                 });
             });
         </script>
