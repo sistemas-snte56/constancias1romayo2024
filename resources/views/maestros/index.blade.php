@@ -108,6 +108,8 @@
                         </tr>
                     @endforeach
                 </x-adminlte-datatable>
+                <br>
+                <h4>SE REALIZO UNA MODIFICACION DESDE EQUIPO DELL</h4>
             </p>
         </div>
     </div>
