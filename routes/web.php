@@ -33,15 +33,11 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
     ])->group(function () {
-        Route::get('/dashboard', function () {
-            return view('dashboard');
-        })->name('dashboard');
+        Route::get('/inicio', function () {
+            return view('inicio');
+        })->name('inicio');
         Route::get('/maestros/import', [MaestroController::class, 'importMaestros'])->name('maestro.import');
         Route::post('maestros/import', [MaestroController::class, 'importMaestrosExcelData'])->name('maestro.import');
         Route::resource('/maestros', MaestroController::class)->names('maestro'); 
-  
-    // Route::get('/maestros/import', [MaestroController::class,'importMaestros'])->name('maestro.importar');
-    // Route::get('maestros/import', [MaestroController::class, 'importMaestros'])->name('maestro.import');
-
 });
 

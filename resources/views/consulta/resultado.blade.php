@@ -74,12 +74,13 @@
                 </div>
             </center>
 
-
-            <blockquote class="blockquote mb-0">
-                <p>Dudas o aclaraciones.</p>
-                <footer class="blockquote-footer">Envíenos un correo a  <cite title="Correo electrónico">innovacion.tecnologica.snte56@gmail.com</cite></footer>
+            <blockquote class="blockquote mb-0 ">
+                <p>Confirme su información.</p>
+                <footer class="blockquote-footer">Verifique sus datos con su   
+                    <cite title="Info">Secretario General Delegacional </cite> o su 
+                    <cite>Secretario de Organización</cite>
+                </footer>
             </blockquote>
-
 
 
         </div>
