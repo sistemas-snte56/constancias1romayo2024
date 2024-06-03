@@ -12,14 +12,22 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class MaestroController extends Controller
 {
+
+
+    // Método para obtener los datos en JSON
+    public function getMaestros()
+    {
+        $maestros = Maestro::with(['delegacion.region', 'genero'])->get();
+        return response()->json(['data' => $maestros]);
+    }
+
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $maestros = Maestro::all();
-        //dd($maestros);
-        return view('maestros.index', compact('maestros') );
+        return view('maestros.index');
     }
 
     /**
@@ -211,8 +219,6 @@ class MaestroController extends Controller
 
     }
     
-
-
 
 
 

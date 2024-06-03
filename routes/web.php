@@ -36,8 +36,10 @@ Route::middleware([
         Route::get('/inicio', function () {
             return view('inicio');
         })->name('inicio');
+
         Route::get('/maestros/import', [MaestroController::class, 'importMaestros'])->name('maestro.import');
         Route::post('maestros/import', [MaestroController::class, 'importMaestrosExcelData'])->name('maestro.import');
+        Route::get('/api/maestros', [MaestroController::class, 'getMaestros']);
         Route::resource('/maestros', MaestroController::class)->names('maestro'); 
 });
 
