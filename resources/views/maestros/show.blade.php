@@ -124,5 +124,16 @@
 @stop
 
 @section('js')
-
+    @if(session('update_ok'))
+        <script>
+            $(document).ready(function(){
+                let mensaje = "{{ session ('update_ok') }}"
+                Swal.fire({
+                    title: mensaje,
+                    //text: "Your file has been deleted.",
+                    icon: "success"
+                });                
+            });
+        </script>
+    @endif
 @stop

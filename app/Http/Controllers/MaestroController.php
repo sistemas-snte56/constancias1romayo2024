@@ -79,8 +79,6 @@ class MaestroController extends Controller
 
         // return redirect('maestros.index')->with('success');
         return redirect('/maestros')->with('success', 'Su registro se guardo con éxito.');
-
-
     }
 
     /**
@@ -125,8 +123,6 @@ class MaestroController extends Controller
             'numero_personal' => 'required|numeric',
         ]);
 
-
-
         if (
             (int)$request->selecciona_delegacion !== $maestro->id_delegacion ||
             (int)$request->selecciona_genero !== $maestro->id_genero ||
@@ -148,14 +144,10 @@ class MaestroController extends Controller
                 $maestro->rfc = $request->input('rfc');
                 $maestro->npersonal = $request->input('numero_personal');
                 $maestro->update();
-                
-                return redirect()->route('maestro.index')->with('update_ok','Información del maestro actualizada con exito.');
+                return redirect()->route('maestro.show',$maestro)->with('update_ok','Información del maestro actualizada con exito.');
         } else {
-            return redirect()->route('maestro.index')->with('update_ok', 'No se realizo ningun cambio.');
+            return redirect()->route('maestro.show',$maestro)->with('update_ok', 'No se realizo ningun cambio.');
         }
-        
-
-
     }
 
     /**
