@@ -14,7 +14,7 @@
 
 
     <div class="card">
-        <h5 class="card-header">LISTADO DE REGISTRO</h5>
+        <h5 class="card-header">TOTAL DE REGISTROS <strong>{{ $totalMaestros }}</strong></h5>
         <div class="card-body">
             <h5 class="card-title">
                 <a href="{{route('maestro.import')}}" class="btn btn-success float-right">

@@ -3,6 +3,7 @@
 use App\Http\Controllers\BuscadorController;
 use App\Http\Controllers\MaestroController;
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\DelegacionController;
 use App\Models\Buscador;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,8 @@ Route::middleware([
         Route::get('/maestros/import', [MaestroController::class, 'importMaestros'])->name('maestro.import');
         Route::post('maestros/import', [MaestroController::class, 'importMaestrosExcelData'])->name('maestro.import');
         Route::resource('/maestros', MaestroController::class)->names('maestro'); 
+        Route::get('/regiones/{id}/total-maestros', [MaestroController::class, 'totalMaestros'])->name('maestro.totales');
         Route::resource('/regiones', RegionController::class)->names('region'); 
+        Route::get('/delegaciones/{id}/total-mastros',[DelegacionController::class,'totalMaestros'])->name('delegacion.maestros.totales');
 });
 

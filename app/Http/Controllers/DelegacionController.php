@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Delegacion;
+use App\Models\Maestro;
 use Illuminate\Http\Request;
 
 class DelegacionController extends Controller
@@ -36,7 +37,7 @@ class DelegacionController extends Controller
      */
     public function show(Delegacion $delegacion)
     {
-        //
+        return "Hola";
     }
 
     /**
@@ -62,4 +63,29 @@ class DelegacionController extends Controller
     {
         //
     }
+
+    public function totalMaestros(Delegacion $delegacion, $id)
+    {
+        $delegacion = Delegacion::findOrFail($id);
+
+        $maestrosPorDelegacion = Maestro::with('delegacion')
+            ->whereHas('delegacion', function ($query) use ($id) {
+                $query->where('id', $id);
+        })
+        ->get()
+        ->groupBy('id_delegacion');
+    
+        $maestrosCountPorDelegacion = $maestrosPorDelegacion->map->count();
+    
+
+
+
+
+
+
+        return view('delegaciones.show-maestros',compact('delegacion','maestrosPorDelegacion','maestrosCountPorDelegacion'));
+    }
+
+
+    
 }

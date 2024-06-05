@@ -208,6 +208,45 @@ class MaestroController extends Controller
     
 
 
+    public function totalMaestros(Maestro $maestro, $id)
+    {
+
+        #Consulta query
+        /* 
+            $maestros = Maestro::select(
+                'regions.region',
+                'regions.sede',
+                'delegacions.delegacion',
+                'maestros.id',
+                'maestros.nombre',
+                'maestros.apaterno',
+                'maestros.amaterno',
+                'maestros.npersonal',
+                'maestros.email',
+                'maestros.codigo_id'
+            )
+            ->join('delegacions', 'delegacions.id', '=', 'maestros.id_delegacion')
+            ->join('regions', 'regions.id', '=', 'delegacions.id_region')
+            ->where('regions.id', $id)
+            ->get();
+
+            return view('maestros.region-totales', compact('maestros'));
+        */
+        
+
+        $region = Region::findOrFail($id);
+        $maestros = Maestro::with('delegacion.region')
+        ->whereHas('delegacion.region', function ($query) use ($id) {
+            $query->where('id', $id);
+        })
+        ->get();
+
+        $maestrosCount = $maestros->count();
+    
+        return view('maestros.region-totales', compact('maestros','region','maestrosCount'));
+    
+
+    }
 
 
 

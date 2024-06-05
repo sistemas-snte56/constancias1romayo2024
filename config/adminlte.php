@@ -307,7 +307,7 @@ return [
         ['header' => 'CONFIGURACIÓN'],
         [
             'text' => 'Administrador',
-            'route' => 'maestro.index',
+            'route' => 'region.index',
             'icon' => 'fas fa-fw fa-user',
         ],
         [

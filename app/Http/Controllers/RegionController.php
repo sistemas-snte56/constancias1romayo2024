@@ -14,10 +14,12 @@ class RegionController extends Controller
      */
     public function index()
     {
+        $totalMaestros = Maestro::count();
+        
         
         // Obtener todas las regiones con el recuento de delegaciones por región
         $regiones = Region::withCount('delegaciones')->get();
-        return view('regiones.index',compact('regiones'));
+        return view('regiones.index',compact('regiones','totalMaestros'));
 
     }
 
