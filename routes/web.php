@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BuscadorController;
 use App\Http\Controllers\MaestroController;
+use App\Http\Controllers\RegionController;
 use App\Models\Buscador;
 use Illuminate\Support\Facades\Route;
 
@@ -39,5 +40,6 @@ Route::middleware([
         Route::get('/maestros/import', [MaestroController::class, 'importMaestros'])->name('maestro.import');
         Route::post('maestros/import', [MaestroController::class, 'importMaestrosExcelData'])->name('maestro.import');
         Route::resource('/maestros', MaestroController::class)->names('maestro'); 
+        Route::resource('/regiones', RegionController::class)->names('region'); 
 });
 

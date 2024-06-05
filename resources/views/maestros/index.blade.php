@@ -73,38 +73,13 @@
 
             </h5>
             <p class="card-text">
-                {{-- Minimal example / fill data using the component slot --}}
+                
                 <x-adminlte-datatable id="table1" :heads="$heads" :config="$config" striped hoverable with-footer with-buttons  bordered >
                     @php $contador = 1; @endphp
-                    @foreach ($maestros as $maestro)
+                    @foreach ($regiones as $region)
                         <tr>
                             <td>{{ $contador++}}</td>
-                            <td>{{ $maestro->delegacion->region->region}}&emsp;—&emsp; {{ $maestro->delegacion->region->sede}}</td>
-                            <td>{{ $maestro->delegacion->delegacion }} 
-                            <td>{{ $maestro->nombre }} 
-                                {{ $maestro->apaterno }}
-                                {{ $maestro->amaterno }}
-                            {{-- <td>{{ $maestro->rfc }}</td> --}}
-                            <td>{{ $maestro->npersonal }}</td>
-                            <td>{{ $maestro->email }}</td>
-                            {{-- <td>{{ $maestro->telefono }}</td> --}}
-                            {{-- <td>{!! $btnEdit !!}</td> --}}
-                            <td>
-                                <a href="{{route('maestro.show', $maestro)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Mostrar">
-                                    <i class="fa fa-lg fa-fw fa-eye"></i>
-                                </a>                            
-                                <a href="{{route('maestro.edit',$maestro)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Editar">
-                                    <i class="fa fa-lg fa-fw fa-pen"></i>
-                                </a>
-                                <form action="{{route('maestro.destroy',$maestro)}}" method="post" class="formEliminar" style="display: inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    {!! $btnDelete !!}
-                                </form>
-                                <a href="{{ route('generar.pdf', $maestro->codigo_id)}}" target="_blank" class="btn btn-xs buttons-print btn-default  mx-1 " title="Imprimir hoja">
-                                    <i class="fas fa-fw fa-lg fa-print"></i>
-                                </a>  
-                            </td>
+                            <td>{{ $region->id }}</td>
                         </tr>
                     @endforeach
                 </x-adminlte-datatable>
@@ -125,66 +100,5 @@
 @stop
 
 @section('js')
-    <script>
-        $(document).ready(function() {
-            $('.formEliminar').submit(function(e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: "Estas seguro?",
-                    text: "¡No podrás revertir esto!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Si, borrarlo!"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        if (result.isConfirmed) {
-                            this.submit();
-                        }
-                    }
-                });
-            })
-        });
-    </script>
 
-    @if(session('delete_ok'))
-        <script>
-            $(document).ready(function(){
-                let mensaje = "{{ session ('delete_ok') }}"
-                Swal.fire({
-                    title: "¡Eliminado!",
-                    text: mensaje,
-                    icon: 'success',
-                });
-            });
-        </script>
-    @endif
-
-
-
-    @if(session('success'))
-        <script>
-            $(document).ready(function(){
-                let mensaje = "{{ session ('success') }}"
-                Swal.fire({
-                    icon: 'success',
-                    title: mensaje,
-                });
-            });
-        </script>
-    @endif
-    @if(session('status'))
-        <script>
-            $(document).ready(function(){
-                let mensaje = "{{ session ('status') }}"
-                Swal.fire({
-                    icon: 'success',
-                    title: "Muy bien !",
-                    text: mensaje,
-                    // text: "no hay resultados",
-                });
-            });
-        </script>
-    @endif
 @stop

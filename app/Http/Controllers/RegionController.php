@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Region;
+use App\Models\Maestro;
+use App\Models\Delegacion;
 use Illuminate\Http\Request;
 
 class RegionController extends Controller
@@ -12,7 +14,11 @@ class RegionController extends Controller
      */
     public function index()
     {
-        //
+        
+        // Obtener todas las regiones con el recuento de delegaciones por región
+        $regiones = Region::withCount('delegaciones')->get();
+        return view('regiones.index',compact('regiones'));
+
     }
 
     /**
@@ -34,9 +40,21 @@ class RegionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Region $region)
+    public function show(Region $region, $id)
     {
-        //
+        $region = Region::with(['delegaciones' => function($query) {
+            $query->withCount('maestros');
+        }])->findOrFail($id);
+    
+
+        $totalMaestros = Maestro::whereHas('delegacion', function ($query) use ($id) {
+            $query->where('id_region', $id);
+        })->count();
+
+
+
+
+        return view('regiones.show', compact('region','totalMaestros'));
     }
 
     /**

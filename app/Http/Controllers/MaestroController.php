@@ -17,9 +17,12 @@ class MaestroController extends Controller
      */
     public function index()
     {
-        $maestros = Maestro::all();
+        // $maestros = Maestro::paginate(100);
         //dd($maestros);
-        return view('maestros.index', compact('maestros') );
+
+        $regiones = Region::with('delegaciones');
+
+        return view('maestros.index', compact('regiones') );
     }
 
     /**
