@@ -177,7 +177,7 @@ class MaestroController extends Controller
 
         Excel::import(new MaestrosImport, $request->file('importar_archivo'));
 
-        return redirect('/maestros')->with('status','Archivo importado satisfactoriamente.');
+        return redirect()->route('region.index')->with('status','Archivo importado satisfactoriamente.');
     }
 
     public function consultaForm()
