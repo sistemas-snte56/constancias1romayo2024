@@ -62,16 +62,5 @@
 @stop
 
 @section('js')
-    @if(session('status'))
-        <script>
-            $(document).ready(function(){
-                let mensaje = "{{ session ('status') }}"
-                Swal.fire({
-                    title: mensaje,
-                    //text: "Your file has been deleted.",
-                    icon: "success"
-                });                
-            });
-        </script>
-    @endif
+
 @stop

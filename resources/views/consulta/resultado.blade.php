@@ -46,7 +46,7 @@
             @endphp
 
             {{-- Minimal example / fill data using the component slot --}}
-            <x-adminlte-datatable id="table1" :heads="$heads"  style="width: 70%;" >
+            <x-adminlte-datatable id="table1" :heads="$heads"  style="width: 100%;" >
                 @php $contador = 1; @endphp
                 @foreach ($maestros as $maestro)
                     <tr style="text-transform: uppercase;">
@@ -55,19 +55,39 @@
                         <td>{{ $maestro->delegacion->delegacion}}&nbsp;{{ $maestro->delegacion->nivel}}&nbsp;{{ $maestro->delegacion->sede}}</td>
                         <td>{{ $maestro->nombre }} {{ $maestro->apaterno }} {{ $maestro->amaterno }}</td>
                         <td> 
-                            <a href="{{ route('generar.pdf', $maestro->codigo_id)}}" target="_blank" class="btn btn-sm buttons-print btn-success mx-1 " title="Imprimir hoja">
-                                <i class="fas fa-fw fa-lg fa-print"></i> IMPRIMIR
+                            <a href="{{ route('generar.pdf', $maestro->codigo_id)}}" target="_blank" class="btn btn-lg buttons-print btn-success mx-1 btn-block" title="Imprimir hoja">
+                                <i class="fas fa-fw fa-lg fa-print"></i> <strong> IMPRIMIR</strong>
                             </a>                             
                         </td>
                     </tr>
                 @endforeach
             </x-adminlte-datatable>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <center>
                 <div class="row">
                     <div class="form-group">
                         <a href="{{route('consulta.store')}}" class="btn btn-secondary mx-2 shadow" title="Delete">
-                            <i class="fa fa-lg fa-fw fa-undo"></i> Regresar
+                            <i class="fa fa-home" aria-hidden="true"></i>&emsp;REGRESAR
                         </a >
 
                     </div>
@@ -92,6 +112,62 @@
 @section('css')
     {{-- Add here extra stylesheets --}}
     {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        @media screen and (max-width: 600px) {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+            }
+
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tr {
+                margin-bottom: 20px;
+                border: 1px solid #ddd;
+            }
+
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td:before {
+                position: absolute;
+                left: 6px;
+                content: attr(data-label);
+                font-weight: bold;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            table td[data-label]::before {
+                content: attr(data-label);
+                font-weight: bold;
+                display: block;
+            }
+        }        
+    </style>
 @stop
 
 @section('js')
