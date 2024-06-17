@@ -6,7 +6,11 @@
 
 @section('content_header')
     <div class="mytitle">
-        {{ $maestrosCountPorDelegacion[$delegacion->id] }} MAESTROS DE LA DELEGACION {{$delegacion->delegacion}}
+        @if(isset($maestrosCountPorDelegacion[$delegacion->id]))
+            {{ $maestrosCountPorDelegacion[$delegacion->id] }} MAESTROS DE LA DELEGACION {{$delegacion->delegacion}}
+        @else
+            0 MAESTROS DE LA DELEGACION {{$delegacion->delegacion}}
+        @endif
     </div>    
 @stop
 
@@ -21,7 +25,6 @@
                 'EMAIL',
                 ['label' => 'EDICION', 'no-export' => true, 'width' => 15]
             ];
-
             $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Eliminar">
                                 <i class="fa fa-lg fa-fw fa-trash"></i>
                             </button>';
@@ -66,31 +69,48 @@
                     
                     <x-adminlte-datatable id="table1" :heads="$heads" :config="$config" striped hoverable with-footer with-buttons  bordered >
                         @php $contador = 1; @endphp
-                        @foreach($maestrosPorDelegacion[$delegacion->id] as $maestro)
+
+                        @if(isset($maestrosPorDelegacion[$delegacion->id]))
+                            @foreach($maestrosPorDelegacion[$delegacion->id] as $maestro)
+                                <tr>
+                                    <td>{{ $contador++}}</td>
+                                    <td>{{ $maestro->nombre }} {{ $maestro->apaterno }} {{ $maestro->amaterno }}</td>
+                                    <td>{{ $maestro->npersonal }}</td>
+                                    <td>{{ $maestro->telefono }}</td>
+                                    <td>{{ $maestro->email }}</td>
+                                    <td>
+                                        <a href="{{route('maestro.show', $maestro->id)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Mostrar">
+                                            <i class="fa fa-lg fa-fw fa-eye"></i>
+                                        </a>                            
+                                        <a href="{{route('maestro.edit',$maestro->id)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Editar">
+                                            <i class="fa fa-lg fa-fw fa-pen"></i>
+                                        </a>
+                                        <form action="{{route('maestro.destroy',$maestro->id)}}" method="post" class="formEliminar" style="display: inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            {!! $btnDelete !!}
+                                        </form>
+                                        <a href="{{ route('generar.pdf', $maestro->codigo_id)}}" target="_blank" class="btn btn-xs buttons-print btn-default  mx-1 " title="Imprimir hoja">
+                                            <i class="fas fa-fw fa-lg fa-print"></i>
+                                        </a>                                
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
                             <tr>
-                                <td>{{ $contador++}}</td>
-                                <td>{{ $maestro->nombre }} {{ $maestro->apaterno }} {{ $maestro->amaterno }}</td>
-                                <td>{{ $maestro->npersonal }}</td>
-                                <td>{{ $maestro->telefono }}</td>
-                                <td>{{ $maestro->email }}</td>
-                                <td>
-                                    <a href="{{route('maestro.show', $maestro->id)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Mostrar">
-                                        <i class="fa fa-lg fa-fw fa-eye"></i>
-                                    </a>                            
-                                    <a href="{{route('maestro.edit',$maestro->id)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Editar">
-                                        <i class="fa fa-lg fa-fw fa-pen"></i>
-                                    </a>
-                                    <form action="{{route('maestro.destroy',$maestro->id)}}" method="post" class="formEliminar" style="display: inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        {!! $btnDelete !!}
-                                    </form>
-                                    <a href="{{ route('generar.pdf', $maestro->codigo_id)}}" target="_blank" class="btn btn-xs buttons-print btn-default  mx-1 " title="Imprimir hoja">
-                                        <i class="fas fa-fw fa-lg fa-print"></i>
-                                    </a>                                
-                                </td>
+                                <td colspan="6" style="text-align: center;">No hay datos disponibles en esta tabla.</td>
                             </tr>
-                        @endforeach
+                        @endif
+
+
+
+
+
+
+
+
+
+
                     </x-adminlte-datatable>
                 </p>
             </div>
@@ -108,5 +128,13 @@
 @stop
 
 @section('js')
-
+    @if(!isset($maestrosCountPorDelegacion[$delegacion->id]))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'No hay maestros asociados para esta delegación',
+            });
+        </script>
+    @endif
 @stop
